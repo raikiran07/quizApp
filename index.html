@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet"> 
+    <title>Codedamn - Quiz Project</title>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+        <div>
+                   <a id=leaderboard href="#">View Highscores <i class="fas fa-hand-point-left fa-lg"></i>
+        </i></a> 
+        
+        </div>
+        <p id="setTime">Time : <span id="time">10 </span> </p>
+    </div>
+ 
+
+    </header>
+    <main class="main-container">
+     <div class="container">
+         <h1>Coding Quiz Challenge</h1>
+         <p> Try to complete all the quiz questions
+</p>
+<p>
+    For any incorrect answer 10 seconds will be deducted from the time clock
+</p>
+<button class="start-btn">Start Quiz</button>
+     </div>
+    </main>
+    <div class="questions">
+        <h2 id="question"></h2>
+       <p class="options one"></p>
+       <p class="options two"></p>
+       <p class="options three"></p>
+       <p class="options four"></p>
+       <div class="status-container"><p id="status">none</p><button id="next">Next</button></div>
+        
+    </div>
+    <div class="results">
+        <p><input type="text" id="username" placeholder="enter your name">: <span id="marks">0</span></p>
+       
+        <button id="submit">submit</button>
+        
+    </div>
+    <script src="assets/script.js"></script>
+</body>
+
+</html>
