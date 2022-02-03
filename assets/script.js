@@ -64,6 +64,12 @@ let userName = document.getElementById("username").value;
 const displayMarks = document.getElementById("marks");
 
 
+option1.addEventListener("click", onAnsweredOption(option1))
+option2.addEventListener("click", onAnsweredOption(option2))
+option3.addEventListener("click", onAnsweredOption(option3))
+option4.addEventListener("click", onAnsweredOption(option4))
+
+
 let marks = 0;
 let index = 0;
 
@@ -122,66 +128,7 @@ function optionClick(){
   option3.style.background="white";
   option4.style.background="white";
   showStatus.innerHTML = "none";
-  option1.addEventListener("click",function(){
-    // console.log(questions[index]['answer']);
-    if(option1.innerHTML===questions[index]['answer']){
-      marks += 1;
-      option1.style.background="green";
-      showStatus.innerHTML = "Correct!";
-      // console.log("marks: ",marks);
-      
-    }
-    else{
-      option1.style.background="red";
-      showStatus.innerHTML = "Incorrect!"
-    }
-    
-  })
-  option2.addEventListener("click",function(){
-    // console.log(questions[index]['answer']);
-    if(option2.innerHTML===questions[index]['answer']){
-      marks += 1;
-      option2.style.background="green";
-      showStatus.innerHTML = "Correct!";
-      // console.log("marks: ",marks);
-    }
-    else{
-      option2.style.background="red";
-      showStatus.innerHTML = "Incorrect!"
-    }
-    
-  })
-  option3.addEventListener("click",function(){
-    // console.log(questions[index]['answer']);
-    if(option3.innerHTML===questions[index]['answer']){
-      marks += 1;
-      option3.style.background="green";
-      showStatus.innerHTML = "Correct!";
-      // console.log("marks: ",marks);
-      
-    }
-    else{
-      option3.style.background="red";
-      showStatus.innerHTML = "Incorrect!"
-    }
-    
-  })
-  option4.addEventListener("click",function(){
-    // console.log(questions[index]['answer']);
-    if(option4.innerHTML===questions[index]['answer']){
-      marks += 1;
-      option4.style.background="green";
-      showStatus.innerHTML = "Correct!";
-      // console.log("marks: ",marks);
-    }
-    else{
-      option4.style.background="red";
-      showStatus.innerHTML = "Incorrect!"
-    }
-    
-  })
-  
- 
+
 }
 
 nextBtn.addEventListener("click",function(){
@@ -208,6 +155,21 @@ nextBtn.addEventListener("click",function(){
 submitBtn.addEventListener("click",function(){
   console.log(userName);
 })
+
+function onAnsweredOption(option){
+  var handler = function(event) {
+    if(option.innerHTML===questions[index]['answer']){
+      marks += 1;
+      option.style.background="green";
+      showStatus.innerHTML = "Correct!";
+    }
+    else{
+      option.style.background="red";
+      showStatus.innerHTML = "Incorrect!"
+    }
+  };
+  return handler;
+}
 
 // console.log(questions.length)
 
