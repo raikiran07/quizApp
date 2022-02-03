@@ -95,8 +95,8 @@ function startTimer(){
 }
 
 function interval(){
-  startTimer();
-  start = setInterval(startTimer,1000);
+  // startTimer();
+  // start = setInterval(startTimer,1000);
  
   startContainer.style.display="none";
   questionContainer.style.display="block";
@@ -123,10 +123,10 @@ function optionClick(){
   option2.innerHTML = questions[index]['options'][1];
   option3.innerHTML = questions[index]['options'][2];
   option4.innerHTML = questions[index]['options'][3];
-  option1.style.background="white";
-  option2.style.background="white";
-  option3.style.background="white";
-  option4.style.background="white";
+  option1.style.background="rgb(86, 179, 241)";
+  option2.style.background="rgb(86, 179, 241)";
+  option3.style.background="rgb(86, 179, 241)";
+  option4.style.background="rgb(86, 179, 241)";
   showStatus.innerHTML = "none";
 
 }
@@ -168,6 +168,7 @@ function onAnsweredOption(option){
       showStatus.innerHTML = "Incorrect!"
     }
   };
+  // console.log("handler",handler);
   return handler;
 }
 

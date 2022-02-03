@@ -113,8 +113,18 @@ main{
     margin:1.5rem 0;
 }
 
-.questions p{
+.questions .options{
     margin-top:1rem;
+    padding:15px;
+    border-radius:5px;
+    background-color:rgb(86, 179, 241);
+    transition:all .3s ease;
+    
+}
+
+.options:hover{
+    /* background-color:rgb(3, 63, 104); */
+    cursor:pointer;
 }
 
 .status-container{
@@ -122,6 +132,10 @@ main{
     display:flex;
     align-items:center;
     justify-content:space-between;
+}
+
+#next{
+    padding:5px 10px;
 }
 
 .results{
