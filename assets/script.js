@@ -40,7 +40,7 @@ const questions = [
 ];
 
 
-const userResults = [];
+
 
 
 
@@ -60,8 +60,13 @@ let start;
 const showStatus = document.getElementById("status");
 const results = document.querySelector(".results");
 const submitBtn = document.getElementById("submit");
-let userName = document.getElementById("username").value;
+let userName = document.getElementById("username");
 const displayMarks = document.getElementById("marks");
+// const users = window.localStorage;
+window.localStorage.setItem("highScores",JSON.stringify([]));
+const highScores = JSON.parse(window.localStorage.getItem("highScores")) || [];
+
+// const usersScores = [];
 
 
 option1.addEventListener("click", onAnsweredOption(option1))
@@ -70,7 +75,7 @@ option3.addEventListener("click", onAnsweredOption(option3))
 option4.addEventListener("click", onAnsweredOption(option4))
 
 
-let marks = 0;
+// let marks = 0;
 let index = 0;
 
 function startTimer(){
@@ -87,7 +92,7 @@ function startTimer(){
     clearInterval(start);
     questionContainer.style.display="none";
     results.style.display="block";
-    displayMarks.innerHTML = marks;
+    displayMarks.innerHTML = timer+1;
 
   }
  
@@ -95,8 +100,8 @@ function startTimer(){
 }
 
 function interval(){
-  // startTimer();
-  // start = setInterval(startTimer,1000);
+  startTimer();
+  start = setInterval(startTimer,1000);
  
   startContainer.style.display="none";
   questionContainer.style.display="block";
@@ -127,6 +132,12 @@ function optionClick(){
   option2.style.background="rgb(86, 179, 241)";
   option3.style.background="rgb(86, 179, 241)";
   option4.style.background="rgb(86, 179, 241)";
+  //default color of the text
+  option1.style.color="#000";
+  option2.style.color="#000";
+  option3.style.color="#000";
+  option4.style.color="#000";
+  
   showStatus.innerHTML = "none";
 
 }
@@ -144,7 +155,7 @@ nextBtn.addEventListener("click",function(){
   else{
     questionContainer.style.display="none";
     results.style.display="block";
-    displayMarks.innerHTML = marks;
+    displayMarks.innerHTML = timer+1;
     clearInterval(start);
   }
  
@@ -153,17 +164,40 @@ nextBtn.addEventListener("click",function(){
 
 
 submitBtn.addEventListener("click",function(){
-  console.log(userName);
+ 
+  const score = {
+    score : timer,
+    userName : userName.value
+  }
+  highScores.push(score);
+  highScores.sort((a,b)=>{
+    return b.score - a.score;
+  })
+  // highScores.splice(5);
+  window.localStorage.setItem("highScores",JSON.stringify(highScores));
+  console.log(highScores);
+  startContainer.style.display="block";
+  results.style.display="none";
+  timer = 50;
+  displayTime.innerHTML = timer;
+  index = 0;
+
+
+
+  
 })
 
 function onAnsweredOption(option){
   var handler = function(event) {
+    
     if(option.innerHTML===questions[index]['answer']){
-      marks += 1;
+      // marks += 1;
       option.style.background="green";
+      option.style.color="#fff";
       showStatus.innerHTML = "Correct!";
     }
     else{
+      timer -= 10;
       option.style.background="red";
       showStatus.innerHTML = "Incorrect!"
     }
@@ -172,10 +206,16 @@ function onAnsweredOption(option){
   return handler;
 }
 
+console.log(users);
+
 // console.log(questions.length)
 
 //have to add event listener for each and every options
 
 
- 
 
+
+// console.log(highScores);
+
+// console.log(users);
+console.log(localStorage);

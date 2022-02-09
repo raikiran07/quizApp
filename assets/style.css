@@ -125,6 +125,7 @@ main{
 .options:hover{
     /* background-color:rgb(3, 63, 104); */
     cursor:pointer;
+    padding:16px;
 }
 
 .status-container{
@@ -186,6 +187,9 @@ main{
 .results #submit:hover{
     cursor:pointer;
     box-shadow:2px 4px 10px rgb(161, 159, 159);
+}
+#username{
+    text-transform: uppercase;
 }
 
 @media only screen and (max-width:1047px){
