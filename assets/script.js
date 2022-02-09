@@ -90,6 +90,7 @@ clearBtn.addEventListener("click",resetHighScore);
 startAgainBtn.addEventListener("click",function(){
     // localStorage.setItem("highScores",JSON.stringfy(highScores));
     startContainer.style.display="block";
+    
     highScoreContainer.style.display="none";
 })
 
