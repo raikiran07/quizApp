@@ -66,6 +66,39 @@ const displayMarks = document.getElementById("marks");
 window.localStorage.setItem("highScores",JSON.stringify([]));
 const highScores = JSON.parse(window.localStorage.getItem("highScores")) || [];
 
+//HIGHSCORE DISPLAY
+const highScoreContainer = document.querySelector(".highscore");
+const displayHighScore = document.getElementById("leaderboard");
+const highscoreList = document.getElementById("highscorelist");
+// const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+const startAgainBtn = document.querySelector(".home-btn");
+const clearBtn = document.querySelector(".clear-btn");
+
+
+//THIS CODE IS NOT WORKING
+
+
+
+
+function resetHighScore(){
+    localStorage.clear();
+    highscoreList.innerHTML = "";
+}
+
+
+clearBtn.addEventListener("click",resetHighScore);
+startAgainBtn.addEventListener("click",function(){
+    // localStorage.setItem("highScores",JSON.stringfy(highScores));
+    startContainer.style.display="block";
+    highScoreContainer.style.display="none";
+})
+
+displayHighScore.addEventListener("click",function(){
+  highScoreContainer.style.display="block";
+  startContainer.style.display="none";
+})
+console.log(highscoreList);
+
 // const usersScores = [];
 
 
@@ -143,8 +176,8 @@ function optionClick(){
 }
 
 nextBtn.addEventListener("click",function(){
-  console.log("index",index);
-  console.log("marks: ",marks);
+  // console.log("index",index);
+  // console.log("marks: ",marks);
   if(index<questions.length-1){
 
     index++;
@@ -182,6 +215,13 @@ submitBtn.addEventListener("click",function(){
   displayTime.innerHTML = timer;
   index = 0;
 
+  //THIS CODE IS NOT WORKING
+  highscoreList.innerHTML = highScores.map(score=>{
+    return `<li class="high-score">${score.userName} - ${score.score}</li>`;
+    
+})
+.join("");
+
 
 
   
@@ -206,7 +246,7 @@ function onAnsweredOption(option){
   return handler;
 }
 
-console.log(users);
+// console.log(users);
 
 // console.log(questions.length)
 
@@ -219,3 +259,5 @@ console.log(users);
 
 // console.log(users);
 console.log(localStorage);
+console.log(highscoreList.innerHTML);
+// console.log(score.userName);

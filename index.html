@@ -13,6 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Lato&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet"> 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet"> 
+
     <title>Codedamn - Quiz Project</title>
 </head>
 
@@ -20,8 +21,8 @@
     <header>
         <div class="header-container">
         <div>
-                   <a id=leaderboard href="highScore.html">View Highscores <i class="fas fa-hand-point-left fa-lg"></i>
-        </i></a> 
+                   <p id="leaderboard" >View Highscores <i class="fas fa-hand-point-left fa-lg"></i>
+        </p>
         
         </div>
         <p id="setTime">Time : <span id="time">50 </span> </p>
@@ -57,7 +58,18 @@
         <button id="submit">submit</button>
         
     </div>
+    <div class="highscore">
+        <h1>HighScores</h1>
+        <ul id="highscorelist">
+
+        </ul>
+     <div class="btn-container">
+        <button class="btn home-btn">Start Again</button>
+        <button class="btn clear-btn">Reset</button>
+     </div>
+    </div>
     <script src="assets/script.js"></script>
+   
 </body>
 
 </html>
