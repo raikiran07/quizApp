@@ -41,224 +41,242 @@ const questions = [
 
 
 
-
-
-
-let timer = 50;
-
-const displayTime = document.getElementById("time");
-const startBtn = document.querySelector(".start-btn");
-const startContainer = document.querySelector(".main-container");
-const questionContainer = document.querySelector(".questions");
+const startBtn = document.getElementById("start-btn");
+const mainContainer = document.getElementById("main");
+const questionContainer = document.getElementById("question-container");
+const userInput = document.getElementById("user-input");
+const highScoreContainer = document.getElementById("high-score");
+let acceptingAnswer = false;
+let index = 0;
+const options = document.querySelectorAll(".options");
 const question = document.getElementById("question");
 const option1 = document.querySelector(".one");
 const option2 = document.querySelector(".two");
 const option3 = document.querySelector(".three");
 const option4 = document.querySelector(".four ");
-const nextBtn = document.getElementById("next");
-let start;
-const showStatus = document.getElementById("status");
-const results = document.querySelector(".results");
-const submitBtn = document.getElementById("submit");
-let userName = document.getElementById("username");
-const displayMarks = document.getElementById("marks");
-// const users = window.localStorage;
-window.localStorage.setItem("highScores",JSON.stringify([]));
-const highScores = JSON.parse(window.localStorage.getItem("highScores")) || [];
+const answerStatus = document.getElementById("status");
+const line = document.getElementById("line");
+let counter = 50;
+let time = document.getElementById("time");
+const userScore = document.getElementById("score");
+const submitBtn = document.querySelector(".submit");
+const userName = document.getElementById("user-name");
+//showing high score
+const highScoreLink = document.getElementById("leaderboard");
+const highScoreList = document.getElementById("highScorelist");
 
-//HIGHSCORE DISPLAY
-const highScoreContainer = document.querySelector(".highscore");
-const displayHighScore = document.getElementById("leaderboard");
-const highscoreList = document.getElementById("highscorelist");
-// const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-const startAgainBtn = document.querySelector(".home-btn");
-const clearBtn = document.querySelector(".clear-btn");
+//initializing the local storage for storing high scores
+const scores = window.localStorage;
+scores.setItem("highScores",JSON.stringify([]));
+let highScores = JSON.parse(window.localStorage.getItem("highScores")) || [];
+let marks;
+
+//back buttons
+const backBtn = document.querySelector(".back");
+const resetBtn = document.querySelector(".clear");
+
+//timer(counter)
+let timer;
+
+let userNum = 1;
 
 
-//THIS CODE IS NOT WORKING
-
-
-
-
-function resetHighScore(){
-    localStorage.clear();
-    highscoreList.innerHTML = "";
+function showStart(){
+  time.innerHTML = '00';
+  mainContainer.style.display="block";
+  questionContainer.style.display="none";
+  userInput.style.display="none";
+  highScoreContainer.style.display="none";
 }
 
-
-clearBtn.addEventListener("click",resetHighScore);
-startAgainBtn.addEventListener("click",function(){
-    // localStorage.setItem("highScores",JSON.stringfy(highScores));
-    startContainer.style.display="block";
-    
-    highScoreContainer.style.display="none";
-})
-
-displayHighScore.addEventListener("click",function(){
-  highScoreContainer.style.display="block";
-  startContainer.style.display="none";
-})
-console.log(highscoreList);
-
-// const usersScores = [];
-
-
-option1.addEventListener("click", onAnsweredOption(option1))
-option2.addEventListener("click", onAnsweredOption(option2))
-option3.addEventListener("click", onAnsweredOption(option3))
-option4.addEventListener("click", onAnsweredOption(option4))
-
-
-// let marks = 0;
-let index = 0;
-
-function startTimer(){
+function showQuestionContainer(){
   
-  if(timer<10){
-    displayTime.innerHTML = '0'+timer;
-  }
-  else{
-    displayTime.innerHTML = timer;
-  }
-  
-  timer--;
-  if(timer<0){
-    clearInterval(start);
-    questionContainer.style.display="none";
-    results.style.display="block";
-    displayMarks.innerHTML = timer+1;
-
-  }
- 
- 
-}
-
-function interval(){
-  startTimer();
-  start = setInterval(startTimer,1000);
- 
-  startContainer.style.display="none";
+  mainContainer.style.display="none";
   questionContainer.style.display="block";
-  // console.log("marks: ",marks);
-  
-  
- 
-  
-  
+  userInput.style.display="none";
+  highScoreContainer.style.display="none";
 }
 
-// const interval = setInterval(startTimer,1000);
-//start of the program
-startBtn.addEventListener("click",function(){
-  interval();
-  optionClick();
-});
-console.log(startContainer);
+function showInput(){
+  mainContainer.style.display="none";
+  questionContainer.style.display="none";
+  userInput.style.display="block";
+  highScoreContainer.style.display="none";
+}
 
-function optionClick(){
- 
-  question.innerHTML = questions[index]['questionText'];
+function showHighScore(){
+  clearInterval(timer);
+  time.innerHTML = "00";
+  mainContainer.style.display="none";
+  questionContainer.style.display="none";
+  userInput.style.display="none";
+  highScoreContainer.style.display="block";
+  displayHighScore();
+}
+
+function start(){
+    
+  answerStatus.innerHTML = "";
+    index = 0;
+    counter = 50;
+     timer = setInterval(function(){
+       
+        if(counter<10){
+            time.innerHTML = '0'+counter;
+        }
+        else{
+            time.innerHTML = counter;
+        }
+         counter--;
+
+         
+        
+        if((counter+1)<=0){
+        marks = counter+1;
+        userScore.innerHTML = marks;
+        clearInterval(timer);
+        showInput();
+        console.log("marks",marks);
+        
+    }
+        
+    },1000);
+
+   
+    mainContainer.style.display="none";
+    questionContainer.style.display="block";
+    showQuestion();
+    
+}
+//  const options = document.querySelectorAll(".options");
+function showQuestion(){
+  acceptingAnswer = false;
+    //loading the questions
+    question.innerHTML = questions[index]['questionText'];
   option1.innerHTML = questions[index]['options'][0];
   option2.innerHTML = questions[index]['options'][1];
   option3.innerHTML = questions[index]['options'][2];
   option4.innerHTML = questions[index]['options'][3];
-  option1.style.background="rgb(86, 179, 241)";
-  option2.style.background="rgb(86, 179, 241)";
-  option3.style.background="rgb(86, 179, 241)";
-  option4.style.background="rgb(86, 179, 241)";
-  //default color of the text
-  option1.style.color="#000";
-  option2.style.color="#000";
-  option3.style.color="#000";
-  option4.style.color="#000";
-  
-  showStatus.innerHTML = "none";
-
+  acceptingAnswer = true;
+ 
 }
 
-nextBtn.addEventListener("click",function(){
-  // console.log("index",index);
-  // console.log("marks: ",marks);
-  if(index<questions.length-1){
 
-    index++;
-    optionClick();
-    console.log(questions[index]['answer']);
-    // console.log(index);
+function updateQuestion(){
+  acceptingAnswer = false;
+  // answerStatus.innerHTML = "none";
+  console.log(index);
+  index++;
+  if(index<questions.length){
+    
+    question.innerHTML = questions[index]['questionText'];
+    option1.innerHTML = questions[index]['options'][0];
+    option2.innerHTML = questions[index]['options'][1];
+    option3.innerHTML = questions[index]['options'][2];
+    option4.innerHTML = questions[index]['options'][3];
+    acceptingAnswer = true;
   }
   else{
-    questionContainer.style.display="none";
-    results.style.display="block";
-    displayMarks.innerHTML = timer+1;
-    clearInterval(start);
+
+    
+    marks = counter + 1;
+    userScore.innerHTML = marks;
+    console.log(marks);
+    // counter = 0;
+    
+    showInput();
+    
+    console.log(userScore);
+    clearInterval(timer);
   }
- 
   
-});
+    
+}
 
-
-submitBtn.addEventListener("click",function(){
+options.forEach((option)=>{
  
-  const score = {
-    score : timer,
-    userName : userName.value
+  option.addEventListener("click",function (){
+    
+    line.style.display="block";
+    // console.log(index);
+
+     if(index<questions.length){
+      if(!acceptingAnswer) return;
+      // acceptingAnswer = false;
+      if(option.innerHTML === questions[index].answer){
+          answerStatus.innerHTML = "Correct!";
+      }
+      else{
+        answerStatus.innerHTML = "Incorrect!";
+        counter -= 10;
+      }
+      updateQuestion();
   }
+  // else{
+  //   console.log("index out of bound");
+  // }
+
+    
+  });
+})
+
+//adding the user input
+
+function userScores(){
+  const score = {
+        score : marks,
+        userName : userName.value
+      };
   highScores.push(score);
   highScores.sort((a,b)=>{
     return b.score - a.score;
   })
-  // highScores.splice(5);
-  window.localStorage.setItem("highScores",JSON.stringify(highScores));
+  highScores.splice(5);
+  scores.setItem("highScores",JSON.stringify(highScores));
   console.log(highScores);
-  startContainer.style.display="block";
-  results.style.display="none";
-  timer = 50;
-  displayTime.innerHTML = timer;
-  index = 0;
+    console.log(scores);
+    // console.log(userName.value);
+    userNum++;
+    console.log(index);
+    showStart();
+}
 
-  //THIS CODE IS NOT WORKING
-  highscoreList.innerHTML = highScores.map(score=>{
+function displayHighScore(){
+  // const scoreArr = scores.keys();
+  // console.log(scoreArr);
+  //   //THIS CODE IS NOT WORKING
+  highScoreList.innerHTML = highScores.map(score=>{
     return `<li class="high-score">${score.userName} - ${score.score}</li>`;
     
 })
 .join("");
-
-
-
-  
-})
-
-function onAnsweredOption(option){
-  var handler = function(event) {
-    
-    if(option.innerHTML===questions[index]['answer']){
-      // marks += 1;
-      option.style.background="green";
-      option.style.color="#fff";
-      showStatus.innerHTML = "Correct!";
-    }
-    else{
-      timer -= 10;
-      option.style.background="red";
-      showStatus.innerHTML = "Incorrect!"
-    }
-  };
-  // console.log("handler",handler);
-  return handler;
 }
 
-// console.log(users);
+function clearHighScore(){
+  console.log(highScoreList);
+  const elemLi = document.querySelector(".high-score");
+  console.log(elemLi);
+  elemLi.innerHTML = "";
+  highScores = [];
+  scores.clear();
+  showStart();
+  
+}
 
-// console.log(questions.length)
 
-//have to add event listener for each and every options
+startBtn.addEventListener("click",start);
+console.log(options);
+// console.log(questions.length);
 
+// showHighScore();
 
+submitBtn.addEventListener("click",userScores);
+// scores.clear();
 
+highScoreLink.addEventListener("click",showHighScore);
 
-// console.log(highScores);
+//back events
+backBtn.addEventListener("click",showStart);
 
-// console.log(users);
-console.log(localStorage);
-console.log(highscoreList.innerHTML);
-// console.log(score.userName);
+//reset event
+resetBtn.addEventListener("click",clearHighScore);
