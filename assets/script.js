@@ -2,7 +2,7 @@
 const questions = [];
 function getQuestion(){
   
-  fetch("https://opentdb.com/api.php?amount=20&category=18&difficulty=medium").then(res=>res.json()).then(data=>{
+  fetch("https://opentdb.com/api.php?amount=20&category=18&type=multiple").then(res=>res.json()).then(data=>{
         
     
     
