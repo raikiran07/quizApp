@@ -111,7 +111,7 @@ const highScoreList = document.getElementById("highScorelist");
 const scores = window.localStorage;
 scores.setItem("highScores",JSON.stringify([]));
 let highScores = JSON.parse(window.localStorage.getItem("highScores")) || [];
-let marks;
+let marks=0;
 
 //back buttons
 const backBtn = document.querySelector(".back");
@@ -176,7 +176,7 @@ function start(){
          
         
         if((counter+1)<=0){
-        marks = counter+1;
+        // marks = counter+1;
         userScore.innerHTML = marks;
         clearInterval(timer);
         showInput();
@@ -223,7 +223,7 @@ function updateQuestion(){
   else{
 
     
-    marks = counter + 1;
+   
     userScore.innerHTML = marks;
     console.log(marks);
     // counter = 0;
@@ -249,10 +249,12 @@ options.forEach((option)=>{
       // acceptingAnswer = false;
       if(option.innerHTML === questions[index].answer){
           answerStatus.innerHTML = "Correct!";
+          marks = marks + 1;
+
       }
       else{
         answerStatus.innerHTML = "Incorrect!";
-        counter -= 10;
+        // counter -= 10;
       }
       updateQuestion();
   }
@@ -290,7 +292,7 @@ function displayHighScore(){
   // console.log(scoreArr);
   //   //THIS CODE IS NOT WORKING
   highScoreList.innerHTML = highScores.map(score=>{
-    return `<li class="high-score">${score.userName} - ${score.score}</li>`;
+    return `<li class="high-score">${score.userName} : ${score.score}</li>`;
     
 })
 .join("");
